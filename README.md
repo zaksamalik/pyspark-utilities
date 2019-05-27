@@ -1,5 +1,9 @@
 # pyspark-utilities
-ETL focused utilities library for PySpark
+ETL focused utilities library for PySpark.
+
+Includes:
+* `spark_utilities` - generalized PySpark utility functions to develop and run Spark applications.
+* `spark_udfs` - Python class containing Spark UDFs written in Scala and accessed via jar passed to SparkContext.
 
 ## Setup
 1. Install library  
@@ -8,7 +12,7 @@ ETL focused utilities library for PySpark
     ```
 2. Follow instructions in [__spark-etl-utilities__](https://github.com/zaksamalik/spark-etl-utilities)
    repo to build `spark-etl-utilities` JAR
-3. Load resulting JAR file in Spark session 
+3. Load resulting JAR file in Spark session (example in Spark Utilities --> Methods section)
 
 ## Spark Utilities
 ### Methods
