@@ -40,6 +40,17 @@ class SparkUDFs:
         _empty_string_to_null = sc._jvm.com.civicboost.spark.etl.utilities.GeneralUDFs.emptyStringToNull_UDF()
         return Column(_empty_string_to_null.apply(_to_seq(sc, [target_col], _to_java_column)))
 
+    def generate_uuid(self):
+        """
+
+        Returns:
+
+        """
+        sc = self.spark.sparkContext
+        # noinspection PyUnresolvedReferences, PyProtectedMember
+        _generate_uuid = sc._jvm.com.civicboost.spark.etl.utilities.GeneralUDFs.generateUUID_UDF()
+        return Column(_generate_uuid.apply(_to_seq(sc, [], _to_java_column)))
+
     def map_booleans_ynu(self, target_col):
         """
 
@@ -54,7 +65,7 @@ class SparkUDFs:
         _map_booleans_ynu = sc._jvm.com.civicboost.spark.etl.utilities.GeneralUDFs.mapBooleansYNU_UDF()
         return Column(_map_booleans_ynu.apply(_to_seq(sc, [target_col], _to_java_column)))
 
-    def string_to_double(self, target_col):
+    def string_to_double_pfd(self, target_col):
         """
 
         Args:
@@ -65,7 +76,21 @@ class SparkUDFs:
         """
         sc = self.spark.sparkContext
         # noinspection PyUnresolvedReferences, PyProtectedMember
-        _string_to_double = sc._jvm.com.civicboost.spark.etl.utilities.GeneralUDFs.stringToDouble_UDF()
+        _string_to_double = sc._jvm.com.civicboost.spark.etl.utilities.GeneralUDFs.stringToDoublePeriodForDecimal_UDF()
+        return Column(_string_to_double.apply(_to_seq(sc, [target_col], _to_java_column)))
+
+    def string_to_double_cfd(self, target_col):
+        """
+
+        Args:
+            target_col ():
+
+        Returns:
+
+        """
+        sc = self.spark.sparkContext
+        # noinspection PyUnresolvedReferences, PyProtectedMember
+        _string_to_double = sc._jvm.com.civicboost.spark.etl.utilities.GeneralUDFs.stringToDoubleCommaForDecimal_UDF()
         return Column(_string_to_double.apply(_to_seq(sc, [target_col], _to_java_column)))
 
     def string_is_number(self, target_col):

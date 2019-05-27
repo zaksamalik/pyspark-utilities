@@ -32,6 +32,8 @@ def start_spark(config=SparkConf(),
 
     # start SparkSession builder
     if env == 'local':
+        if app_name is None:
+            app_name = 'some_app'
         session_builder = (SparkSession
                            .builder
                            .master('local')
