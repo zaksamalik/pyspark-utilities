@@ -28,7 +28,34 @@ ETL focused utilities library for PySpark
                     .withColumn('uuid', udfs.generate_uuid())
                     .withColumn('clean_string', udfs.clean_string(col('messy_text'))))
     ``` 
- * List of Methods
-    *
-    *
+### List of Methods 
+* __General Functions__
+
+    * `clean_string` - remove Java ISO control characters from, and trim, string
+        * _Returns_: `string` (Nullable)
+    *  `empty_string_to_null` - convert empty strings to null values
+        * _Returns_: `string` (Nullable)
+    *  `generate_uuid` - generate V4 UUID
+        * _Returns_: `string`
+    * `map_booleans_ynu` - map boolean values to `Y`, `N`, `Unknown`
+        * _Returns_: `string`
+    * `string_to_double_pfd` - convert string to double (where `.` represents decimal place)
+        * _Returns_: `double` (nullable)
+    * `string_to_double_cfd` - convert string to decimal (where `,` represents decimal place)
+        * _Returns_: `double` (nullable)
+    * `string_is_number` - validate whether passed string could be converted to a number.
+        * _Returns_: `boolean`
+* __Datetime Functions__
+    * `normalize_date_md` - normalize string to date with MONTH before DAY
+        * _Returns_: `date` (nullable)
+    * `normalize_date_dm` - normalize string to date with DAY before MONTH
+        * _Returns_: `date` (nullable)
+    * `normalize_timestamp_md` - normalize string to timestamp with MONTH before DAY
+        * _Returns_: `timestamp` (nullable)
+    * `normalize_timestamp_dm` - normalize string to timestamp with DAY before MONTH
+        * _Returns_: `timestamp` (nullable)
+
+
+
+
     
