@@ -13,6 +13,7 @@ ETL focused utilities library for PySpark
 ## Spark Utilities
 ### Methods
 * `start_spark` - instantiate SparkSession
+
     ```py
     from os.path import expanduser
     from pyspark import SparkConf
