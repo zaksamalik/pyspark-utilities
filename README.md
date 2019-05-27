@@ -32,28 +32,28 @@ ETL focused utilities library for PySpark
 * __General Functions__
 
     * `clean_string` - remove Java ISO control characters from, and trim, string
-        * _Returns_: `string` (Nullable)
+        * returns: _string_ (nullable)
     *  `empty_string_to_null` - convert empty strings to null values
-        * _Returns_: `string` (Nullable)
+        * returns: _string_ (nullable)
     *  `generate_uuid` - generate V4 UUID
-        * _Returns_: `string`
+        * returns: _string_
     * `map_booleans_ynu` - map boolean values to `Y`, `N`, `Unknown`
-        * _Returns_: `string`
+        * returns: _string_
     * `string_to_double_pfd` - convert string to double (where `.` represents decimal place)
-        * _Returns_: `double` (nullable)
+        * returns: _double_ (nullable)
     * `string_to_double_cfd` - convert string to decimal (where `,` represents decimal place)
-        * _Returns_: `double` (nullable)
+        * returns: _double_ (nullable)
     * `string_is_number` - validate whether passed string could be converted to a number.
-        * _Returns_: `boolean`
+        * returns: _boolean_
 * __Datetime Functions__
     * `normalize_date_md` - normalize string to date with MONTH before DAY
-        * _Returns_: `date` (nullable)
+        * returns: _date_ (nullable)
     * `normalize_date_dm` - normalize string to date with DAY before MONTH
-        * _Returns_: `date` (nullable)
+        * returns: _date_ (nullable)
     * `normalize_timestamp_md` - normalize string to timestamp with MONTH before DAY
-        * _Returns_: `timestamp` (nullable)
+        * returns: _timestamp_ (nullable)
     * `normalize_timestamp_dm` - normalize string to timestamp with DAY before MONTH
-        * _Returns_: `timestamp` (nullable)
+        * returns: _timestamp_ (nullable)
 
 
 
