@@ -3,7 +3,6 @@ import pandas as pd
 from pyspark import SparkConf
 from pyspark.sql.functions import col
 
-from pyspark_utilities.jar import build_udf_dependency_jar
 from pyspark_utilities.spark_utilities import start_spark
 from pyspark_utilities.spark_udfs import SparkUDFs
 
@@ -35,8 +34,6 @@ def generate_test_df(spark):
 
 
 def main():
-    build_udf_dependency_jar(expanduser('~/dep_jar_testing'))
-
     # start SparkSession
     config = (SparkConf().setAll([
         ('spark.serializer', 'org.apache.spark.serializer.KryoSerializer'),
