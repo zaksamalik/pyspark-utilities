@@ -3,7 +3,6 @@ import pandas as pd
 from pyspark import SparkConf
 from pyspark.sql.functions import col
 
-from pyspark_utilities.jar import build_udf_dependency_jar
 from pyspark_utilities.spark_utilities import start_spark
 from pyspark_utilities.spark_udfs import SparkUDFs
 
@@ -35,13 +34,11 @@ def generate_test_df(spark):
 
 
 def main():
-    build_udf_dependency_jar(expanduser('~/dep_jar_testing'))
-
     # start SparkSession
     config = (SparkConf().setAll([
         ('spark.serializer', 'org.apache.spark.serializer.KryoSerializer'),
-        ('spark.driver.extraClassPath', expanduser('~/dep_jar_testing/*')),
-        ('spark.executor.extraClassPath', expanduser('~/dep_jar_testing/*'))
+        ('spark.driver.extraClassPath', expanduser('/path/to/jars/*')),
+        ('spark.executor.extraClassPath', expanduser('/path/to/jars/*'))
     ]))
     spark = start_spark(config=config, app_name='spark_udfs_example', env='local')
 
