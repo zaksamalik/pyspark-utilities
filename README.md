@@ -1,2 +1,2 @@
 # pyspark-utilities
-ETL focused utilities library for PySpark
+ETL-focused utilities library for PySpark
