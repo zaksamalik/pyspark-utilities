@@ -8,7 +8,7 @@ Includes:
 ## Setup
 1. Install library  
     ```bash
-    pip install pyspark-utilities
+    pip install git+https://github.com/zaksamalik/pyspark-utilities
     ```
 2. Follow instructions in [__spark-etl-utilities__](https://github.com/zaksamalik/spark-etl-utilities)
    repo to build `spark-etl-utilities` JAR
