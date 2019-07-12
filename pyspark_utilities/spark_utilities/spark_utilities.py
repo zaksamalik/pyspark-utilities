@@ -17,7 +17,7 @@ def start_spark(config=SparkConf(),
     Args:
         config (SparkConf): SparkConf() with set parameters (optional).
         app_name (str): Name of Spark application (optional).
-        env (str): Where Spark application is running (required). Known values: `local`, `emr`.
+        env (str): Where Spark application is running (required). Known values: `local`, `cluster`.
         enable_hive (bool): If `True`: adds Hive support via `enableHiveSupport()`
         source_aws_credentials_file (bool): Whether to source AWS credentials file.
         aws_profile (str): Name of profile to use for interacting with AWS services. Only used if `env` is `local`.
