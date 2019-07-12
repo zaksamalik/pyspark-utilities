@@ -13,7 +13,7 @@ setuptools.setup(
     url="https://github.com/zaksamalik/pyspark-utilities",
     packages=setuptools.find_packages(),
     install_requires=['pyspark>=2.4.0',
-                      'pandas>=0.24.3'],
+                      'pandas>=0.24.0'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
