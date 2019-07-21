@@ -40,6 +40,7 @@ ETL utilities library for PySpark.
 
 ## Pandas UDFs
 TODO: example usage
+
 Spark UDFs written in Python using Pandas UDF functionality added in Spark 2.3.
 ### Methods
 * Fuzzy String Matching (methods from [__fuzzywuzzy__](https://github.com/seatgeek/fuzzywuzzy) package)
