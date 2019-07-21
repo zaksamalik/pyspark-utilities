@@ -1,8 +1,9 @@
 # pyspark-utilities
 ETL focused utilities library for PySpark.
 
-Includes:
+## Package Contents
 * `spark_utilities` - generalized PySpark utility functions to develop and run Spark applications.
+* `pandas_udfs` - Python module containing Spark UDFs written using [__Pandas UDF__](https://docs.databricks.com/spark/latest/spark-sql/udf-python-pandas.html) functionality added in Spark 2.3.
 * `spark_udfs` - Python class containing Spark UDFs written in Scala and accessed via jar passed to SparkContext.
 
 ## Setup
@@ -37,7 +38,26 @@ Includes:
         * `aws_profile` (_str_) - name of profile to use for interacting with AWS services (defaulted).
                                   Only used if `env` is `local`.
 
+## Pandas UDFs
+TODO: example usage
+Spark UDFs written in Python using Pandas UDF functionality added in Spark 2.3.
+### Methods
+* Fuzzy String Matching (methods from [__fuzzywuzzy__](https://github.com/seatgeek/fuzzywuzzy) package)
+    * `pd_fuzz_ratio` - simple ratio (`fuzz.ratio`)
+        * returns: _integer_ 
+    * `pd_fuzz_partial_ratio` - partial ratio (`fuzz.partial_ratio`)
+        * returns: _integer_
+    * `pd_fuzz_token_set_ratio` - token set ratio (`fuzz.token_set_ratio`)
+        * returns: _integer_
+    * `pd_fuzz_partial_token_set_ratio` - partial token set ratio (`fuzz.partial_token_set_ratio`)
+        * returns: _integer_
+    * `pd_fuzz_token_sort_ratio` - token sort ratio (`fuzz.token_sort_ratio`)
+        * returns: _integer_
+    * `pd_fuzz_partial_token_sort_ratio` - partial token sort ratio (`fuzz.partial_token_sort_ratio`)
+        * returns: _integer_  
+        
 ## Spark UDFs
+Spark UDFs written in Scala exposed to Python.
 ### Example
 See full example [__here__](https://github.com/zaksamalik/pyspark-utilities/blob/develop/src/spark_udf_testing.py).
 ```py
