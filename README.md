@@ -43,7 +43,7 @@ TODO: example usage
 
 Spark UDFs written in Python using Pandas UDF functionality added in Spark 2.3.
 ### Methods
-* Fuzzy String Matching (methods from [__fuzzywuzzy__](https://github.com/seatgeek/fuzzywuzzy) package)
+* __Fuzzy String Matching__ (methods from [__fuzzywuzzy__](https://github.com/seatgeek/fuzzywuzzy) package)
     * `pd_fuzz_ratio` - simple ratio (`fuzz.ratio`)
         * returns: _integer_ 
     * `pd_fuzz_partial_ratio` - partial ratio (`fuzz.partial_ratio`)
