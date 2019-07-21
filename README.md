@@ -1,5 +1,5 @@
 # pyspark-utilities
-ETL focused utilities library for PySpark.
+ETL utilities library for PySpark.
 
 ## Package Contents
 * `spark_utilities` - generalized PySpark utility functions to develop and run Spark applications.
