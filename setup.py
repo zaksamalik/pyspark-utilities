@@ -17,7 +17,7 @@ setuptools.setup(
                       'pandas>=0.24.0',
                       'pyarrow>=0.13.0',
                       'pyspark>=2.4.0',
-                      'python-Levenshtien>=0.12.0'],
+                      'python-Levenshtein>=0.12.0'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
