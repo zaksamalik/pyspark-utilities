@@ -12,7 +12,8 @@ ETL utilities library for PySpark.
     pip install git+https://github.com/zaksamalik/pyspark-utilities
     ```
 2. Follow instructions in [__spark-etl-utilities__](https://github.com/zaksamalik/spark-etl-utilities)
-   repo to build `spark-etl-utilities` JAR (Note: optional, required to use `Spark UDFs` written in Scala
+   repo to build `spark-etl-utilities` JAR 
+    * Note: steps 2 & 3 are optional, required to use Spark UDFs written in Scala
 3. Load resulting JAR file in Spark session (example in Spark Utilities --> Methods section)
 
 ## Spark Utilities
