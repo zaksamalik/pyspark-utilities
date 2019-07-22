@@ -3,8 +3,9 @@ ETL utilities library for PySpark.
 
 ## Package Contents
 * `spark_utilities` - generalized PySpark utility functions to develop and run Spark applications.
-* `pandas_udfs` - Python module containing Spark UDFs written using [__Pandas UDF__](https://docs.databricks.com/spark/latest/spark-sql/udf-python-pandas.html) functionality added in Spark 2.3.
+* `pandas_udfs` - Spark UDFs written using [__Pandas UDF__](https://docs.databricks.com/spark/latest/spark-sql/udf-python-pandas.html) functionality added in Spark 2.3.
 * `spark_udfs` - Python class containing Spark UDFs written in Scala and accessed via jar passed to SparkContext.
+* `dimension_utilities` - functions to generate dimension ("dim") tables as Spark DataFrames.
 
 ## Setup
 1. Install library  
@@ -12,16 +13,20 @@ ETL utilities library for PySpark.
     pip install git+https://github.com/zaksamalik/pyspark-utilities
     ```
 2. Follow instructions in [__spark-etl-utilities__](https://github.com/zaksamalik/spark-etl-utilities)
-   repo to build `spark-etl-utilities` JAR
-3. Load resulting JAR file in Spark session (example in Spark Utilities --> Methods section)
+   repo to build `spark-etl-utilities` JAR.
+   * Note: steps 2 & 3 are optional and only required in order to use the Spark UDFs written in Scala.
+3. Load resulting JAR file in Spark session (example in Spark Utilities --> Methods section).
 
 ## Spark Utilities
+Generalized PySpark utility functions to develop and run Spark applications.
 ### Methods
+__General__
 * `start_spark` - instantiate SparkSession
 
     ```py
     from os.path import expanduser
     from pyspark import SparkConf
+    from pyspark_utilities.spark_utilities import start_spark
     
     config = (SparkConf().setAll([
         ('spark.driver.extraClassPath', expanduser('/path/to/jars/*')),
@@ -42,7 +47,10 @@ ETL utilities library for PySpark.
 TODO: example usage
 Spark UDFs written in Python using Pandas UDF functionality added in Spark 2.3.
 ### Methods
-* Fuzzy String Matching (methods from [__fuzzywuzzy__](https://github.com/seatgeek/fuzzywuzzy) package)
+* __Datetime UDFs__
+    * `pd_is_holiday_usa` - check whether a given date is a US holiday (from [__holidays__](https://pypi.org/project/holidays/) package)
+        * returns: _string_ (`Y`, `N`, `Unknown`)
+* __Fuzzy String Matching UDFs__ (methods from [__fuzzywuzzy__](https://github.com/seatgeek/fuzzywuzzy) package)
     * `pd_fuzz_ratio` - simple ratio (`fuzz.ratio`)
         * returns: _integer_ 
     * `pd_fuzz_partial_ratio` - partial ratio (`fuzz.partial_ratio`)
@@ -71,7 +79,7 @@ df_with_uuid = (df
                 .withColumn('clean_string', udfs.clean_string(col('messy_text'))))
 ``` 
 ### Methods 
-* __General Functions__
+* __General UDFs__
     * `clean_string` - remove Java ISO control characters from, and trim, string
         * returns: _string_ (nullable)
     *  `empty_string_to_null` - convert empty strings to null values
@@ -86,7 +94,7 @@ df_with_uuid = (df
         * returns: _double_ (nullable)
     * `string_is_number` - validate whether passed string could be converted to a number.
         * returns: _boolean_
-* __Datetime Functions__
+* __Datetime UDFs__
     * `normalize_date_md` - normalize string to date with MONTH before DAY
         * returns: _date_ (nullable)
     * `normalize_date_dm` - normalize string to date with DAY before MONTH
@@ -95,3 +103,19 @@ df_with_uuid = (df
         * returns: _timestamp_ (nullable)
     * `normalize_timestamp_dm` - normalize string to timestamp with DAY before MONTH
         * returns: _timestamp_ (nullable)
+
+## Dimension Utilities
+Functions to generate dimension ("dim") tables as Spark DataFrames.
+### Methods
+__Datetime__
+* `generate_dim_date` - generate Spark DataFrame with various date dimensions (think advanced "dim_date" table).
+    * arguments:
+        * `spark` - instantiated SparkSession
+    * example usage
+        ```py
+        from pyspark_utilities.spark_utilities import start_spark
+        from pyspark_utilities.dimension_utilities import generate_dim_date
+            
+        spark=start_spark(env='local')
+        dim_date_df = generate_dim_date(spark=spark)
+        ```

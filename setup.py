@@ -12,9 +12,11 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/zaksamalik/pyspark-utilities",
     packages=setuptools.find_packages(),
-    install_requires=['pyspark>=2.4.0',
-                      'pandas>=0.24.0',
+    install_requires=['holidays>=0.9.20',
                       'fuzzywuzzy>=0.17.0',
+                      'pandas>=0.24.0',
+                      'pyarrow>=0.13.0',
+                      'pyspark>=2.4.0',
                       'python-Levenshtien>=0.12.0'],
     classifiers=[
         "Programming Language :: Python :: 3",
