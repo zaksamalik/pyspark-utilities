@@ -1,7 +1,7 @@
 import pandas as pd
 from pyspark.sql.functions import (col, concat, date_format, datediff, dayofmonth, dayofweek, dayofyear, expr,
                                    last_day, lit, lpad, quarter, regexp_replace, to_date, weekofyear, when)
-from ..pandas_udfs.date_udfs import pd_is_holiday_usa
+from ..pandas_udfs.datetime_udfs import pd_is_holiday_usa
 
 
 def generate_dim_date(spark):
@@ -51,10 +51,10 @@ def generate_dim_date(spark):
                      .withColumn('day_name', date_format(col('date'), 'EEEE'))
                      .withColumn('month_name', date_format(col('date'), 'MMMM'))
                      # get `date_year`, `date_quarter`, `date_month`, `date_week`
-                     .withColumn('date_year', date_format(col('date'), 'yyyy-01-01'))
-                     .withColumn('date_quarter', expr("MIN(date) OVER(PARTITION BY quarter, year)"))
-                     .withColumn('date_month', date_format(col('date'), 'yyyy-MM-01'))
                      .withColumn('date_week', expr("MIN(date) OVER(PARTITION BY week, year)"))
+                     .withColumn('date_month', date_format(col('date'), 'yyyy-MM-01'))
+                     .withColumn('date_quarter', expr("MIN(date) OVER(PARTITION BY quarter, year)"))
+                     .withColumn('date_year', date_format(col('date'), 'yyyy-01-01'))
                      # get `day_of_week`, `day_of_quarter`, `day_of_year`
                      .withColumn('day_of_week', dayofweek(col('date')))
                      .withColumn('day_of_quarter', datediff(col('date'), col('date_quarter')) + lit(1))

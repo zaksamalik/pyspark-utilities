@@ -1,11 +1,11 @@
 # pyspark-utilities
-ETL utilities library for PySpark.
+ETL utilities library for PySpark
 
 ## Package Contents
-* `spark_utilities` - generalized PySpark utility functions to develop and run Spark applications.
-* `pandas_udfs` - Spark UDFs written using [__Pandas UDF__](https://docs.databricks.com/spark/latest/spark-sql/udf-python-pandas.html) functionality added in Spark 2.3.
-* `spark_udfs` - Python class containing Spark UDFs written in Scala and accessed via jar passed to SparkContext.
-* `dimension_utilities` - functions to generate dimension ("dim") tables as Spark DataFrames.
+* `spark_utilities` - general PySpark utility functions to develop and run Spark applications
+* `pandas_udfs` - Spark UDFs written using [__Pandas UDF__](https://docs.databricks.com/spark/latest/spark-sql/udf-python-pandas.html) functionality added in Spark 2.3
+* `spark_udfs` - Python class containing Spark UDFs written in Scala and accessed via jar passed to SparkContext
+* `dimension_utilities` - functions to generate dimension tables as Spark DataFrames
 
 ## Setup
 1. Install library  
@@ -13,27 +13,15 @@ ETL utilities library for PySpark.
     pip install git+https://github.com/zaksamalik/pyspark-utilities
     ```
 2. Follow instructions in [__spark-etl-utilities__](https://github.com/zaksamalik/spark-etl-utilities)
-   repo to build `spark-etl-utilities` JAR.
-   * Note: steps 2 & 3 are optional and only required in order to use the Spark UDFs written in Scala.
-3. Load resulting JAR file in Spark session (example in Spark Utilities --> Methods section).
+   repo to build `spark-etl-utilities` JAR
+   * __Note__: steps 2 & 3 are optional and only required in order to use the Spark UDFs written in Scala
+3. Load resulting JAR file in Spark session (example in Spark Utilities --> Methods section)
 
 ## Spark Utilities
-Generalized PySpark utility functions to develop and run Spark applications.
+General PySpark utilities functions to develop and run Spark applications
 ### Methods
 __General__
 * `start_spark` - instantiate SparkSession
-
-    ```py
-    from os.path import expanduser
-    from pyspark import SparkConf
-    from pyspark_utilities.spark_utilities import start_spark
-    
-    config = (SparkConf().setAll([
-        ('spark.driver.extraClassPath', expanduser('/path/to/jars/*')),
-        ('spark.executor.extraClassPath', expanduser('/path/to/jars/*'))
-    ]))
-    spark = start_spark(config=config, app_name='spark_udfs_example', env='local')
-    ```
     * arguments:
         * `config` (_SparkConf_) - SparkConf() with set parameters (defaulted).
         * `app_name` (_str_) - name of Spark application (defaulted).
@@ -41,31 +29,76 @@ __General__
         * `enable_hive` (_bool_) - if `True`: adds Hive support via `enableHiveSupport()` (defaulted).
         * `source_aws_credentials_file` (_bool_) - whether to source AWS credentials file (defaulted).
         * `aws_profile` (_str_) - name of profile to use for interacting with AWS services (defaulted).
-                                  Only used if `env` is `local`.
+           Only used if `env` is `local`.
+    * example usage
+    ```py
+    from os.path import expanduser
+    from pyspark import SparkConf
+    from pyspark_utilities.spark_utilities import start_spark
+
+    config = (SparkConf().setAll([
+        ('spark.driver.extraClassPath', expanduser('/path/to/jars/*')),
+        ('spark.executor.extraClassPath', expanduser('/path/to/jars/*'))
+    ]))
+    spark = start_spark(config=config, app_name='example_app', env='local')
+    ```
 
 ## Pandas UDFs
-TODO: example usage
-Spark UDFs written in Python using Pandas UDF functionality added in Spark 2.3.
+Spark UDFs written in Python using Pandas UDF functionality added in Spark 2.3.  
+Due to vectorization and the use of PyArrow to transfer data from Spark to Pandas,
+Pandas UDFs are significantly more performant that row-at-a-time UDFs.
+
+__Note__: all Pandas UDFs start with `pd_` prefix.
 ### Methods
+* __General UDFs__
+    * `pd_clean_string` -
+    * `pd_clean_string` -
+    * `pd_empty_string_to_null` -
+    * `pd_generate_uuid` -
+    * `pd_map_booleans_ynus` -
+    * `pd_string_to_double_pfd` -
+    * `pd_string_to_double_cfd` -
+    * `pd_string_is_number` -
 * __Datetime UDFs__
     * `pd_is_holiday_usa` - check whether a given date is a US holiday (from [__holidays__](https://pypi.org/project/holidays/) package)
-        * returns: _string_ (`Y`, `N`, `Unknown`)
+        * returns: _StringType_ (`Y`, `N`, `Unknown`)
+    * `pd_normalize_date_md` - Convert column with dates as strings to dates
+    (MONTH BEFORE DAY).
+        * returns: _DateType_
+    * `pd_normalize_date_dm` - Convert column with dates as strings to dates
+    (DAY BEFORE MONTH).
+        * returns: _DateType_
+    * `pd_normalize_timestamp_md` - Convert column with timestamps as strings to
+    timestamps (MONTH BEFORE DAY).
+        * returns _TimestampType_
+    * `pd_normalize_timestamp_dm` - Convert column with timestamps as strings to timestamps (DAY BEFORE MONTH).
+        * returns _TimestampType_
+* example usage TODO
+  ```py
+  ```
+
 * __Fuzzy String Matching UDFs__ (methods from [__fuzzywuzzy__](https://github.com/seatgeek/fuzzywuzzy) package)
     * `pd_fuzz_ratio` - simple ratio (`fuzz.ratio`)
-        * returns: _integer_ 
+        * returns: _IntegerType_
     * `pd_fuzz_partial_ratio` - partial ratio (`fuzz.partial_ratio`)
-        * returns: _integer_
+        * returns: _IntegerType_
     * `pd_fuzz_token_set_ratio` - token set ratio (`fuzz.token_set_ratio`)
-        * returns: _integer_
+        * returns: _IntegerType_
     * `pd_fuzz_partial_token_set_ratio` - partial token set ratio (`fuzz.partial_token_set_ratio`)
-        * returns: _integer_
+        * returns: _IntegerType_
     * `pd_fuzz_token_sort_ratio` - token sort ratio (`fuzz.token_sort_ratio`)
-        * returns: _integer_
+        * returns: _IntegerType_
     * `pd_fuzz_partial_token_sort_ratio` - partial token sort ratio (`fuzz.partial_token_sort_ratio`)
-        * returns: _integer_  
-        
-## Spark UDFs
-Spark UDFs written in Scala exposed to Python.
+        * returns: _IntegerType_  
+
+## Spark UDFs (Scala)
+Spark UDFs written in Scala exposed to Python.  
+
+__Important Note__: all Scala Spark UDF functionality also exist as Pandas UDFs.  
+Because they are Scala native, these Spark UDFs should be more performant
+than Pandas UDFs (in most cases), but require an external JAR in order to use.  
+For a pure Python ETL implementation, use Pandas UDFs instead.
+
 ### Example
 See full example [__here__](https://github.com/zaksamalik/pyspark-utilities/blob/develop/src/spark_udf_testing.py).
 ```py
@@ -77,8 +110,8 @@ udfs = SparkUDFs(spark)
 df_with_uuid = (df
                 .withColumn('uuid', udfs.generate_uuid())
                 .withColumn('clean_string', udfs.clean_string(col('messy_text'))))
-``` 
-### Methods 
+```
+### Methods
 * __General UDFs__
     * `clean_string` - remove Java ISO control characters from, and trim, string
         * returns: _string_ (nullable)
@@ -115,7 +148,7 @@ __Datetime__
         ```py
         from pyspark_utilities.spark_utilities import start_spark
         from pyspark_utilities.dimension_utilities import generate_dim_date
-            
+
         spark=start_spark(env='local')
         dim_date_df = generate_dim_date(spark=spark)
         ```

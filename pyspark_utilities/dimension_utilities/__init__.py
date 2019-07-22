@@ -1,1 +1,1 @@
-from .datetime_dimension_utilities import *
+from .dim_datetime_utilities import *
