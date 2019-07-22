@@ -46,21 +46,27 @@ __General__
 ## Pandas UDFs
 Spark UDFs written in Python using Pandas UDF functionality added in Spark 2.3.  
 Due to vectorization and the use of PyArrow to transfer data from Spark to Pandas,
-Pandas UDFs are significantly more performant that row-at-a-time UDFs.
+Pandas UDFs are significantly more performant that row-at-a-time Python UDFs.
 
 __Note__: all Pandas UDFs start with `pd_` prefix.
 ### Methods
 * __General UDFs__
-    * `pd_clean_string` -
-    * `pd_clean_string` -
-    * `pd_empty_string_to_null` -
-    * `pd_generate_uuid` -
-    * `pd_map_booleans_ynus` -
-    * `pd_string_to_double_pfd` -
-    * `pd_string_to_double_cfd` -
-    * `pd_string_is_number` -
+    * `pd_clean_string` - remove ISO control characters from, and trim input string column.
+        * returns: _StringType_
+    * `pd_empty_string_to_null` - check if input values in strings column are empty, and return null if so.
+        * returns: _StringType_
+    * `pd_generate_uuid` - generate UUID v4.
+        * returns: _StringType_
+    * `pd_map_booleans_ynus` - map boolean values to `Y`, `N`, `Unknown`.
+        * returns: _StringType_
+    * `pd_string_to_double_pfd` - convert string column to double where PERIOD represents DECIMAL place
+        * returns: _DoubleType_
+    * `pd_string_to_double_cfd` - convert string column to double where COMMA represents DECIMAL place
+        * returns: _DoubleType_
+    * `pd_string_is_number` - check whether values in string column can be converted to numbers
+        * returns: _BooleanType_
 * __Datetime UDFs__
-    * `pd_is_holiday_usa` - check whether a given date is a US holiday (from [__holidays__](https://pypi.org/project/holidays/) package)
+    * `pd_is_holiday_usa` - check whether values in date column are US holidays (from [__holidays__](https://pypi.org/project/holidays/) package).
         * returns: _StringType_ (`Y`, `N`, `Unknown`)
     * `pd_normalize_date_md` - Convert column with dates as strings to dates
     (MONTH BEFORE DAY).
@@ -95,12 +101,9 @@ __Note__: all Pandas UDFs start with `pd_` prefix.
 Spark UDFs written in Scala exposed to Python.  
 
 __Important Note__: all Scala Spark UDF functionality also exist as Pandas UDFs.  
-Because they are Scala native, these Spark UDFs should be more performant
-than Pandas UDFs (in most cases), but require an external JAR in order to use.  
-For a pure Python ETL implementation, use Pandas UDFs instead.
+Because they are Scala native, Spark UDFs should be more performant than Pandas UDFs (in most cases), but require an external JAR in order to use. For pure Python ETL implementations, use Pandas UDFs instead. All other functionality in this package will work fine without the Spark UDFs JAR.
 
 ### Example
-See full example [__here__](https://github.com/zaksamalik/pyspark-utilities/blob/develop/src/spark_udf_testing.py).
 ```py
 from pyspark.sql.functions import col
 from pyspark_utilities.spark_udfs import SparkUDFs
