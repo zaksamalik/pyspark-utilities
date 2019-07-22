@@ -1,5 +1,5 @@
 # pyspark-utilities
-ETL utilities library for PySpark
+ETL-focused utilities library for PySpark
 
 ## Package Contents
 * `spark_utilities` - general PySpark utilities to develop and run Spark applications
@@ -156,11 +156,13 @@ __Datetime__
 * `generate_dim_date` - generate Spark DataFrame with various date dimensions
     * arguments:
         * `spark` - instantiated SparkSession
+        * `start_date` - starting (minimum) year for dim_date table
+        * `number_years_out_from_start` - number of years out from starting date to increment
     * example usage
         ```py
         from pyspark_utilities.spark_utilities import start_spark
         from pyspark_utilities.dimension_utilities import generate_dim_date
 
         spark=start_spark(env='local')
-        dim_date_df = generate_dim_date(spark=spark)
+        dim_date_df = generate_dim_date(spark=spark, start_year=1901, number_years_out_from_start=300)
         ```

@@ -169,21 +169,21 @@ def string_to_float(target_str, comma_for_decimal=False):
             string_clean = re.sub(',', '.', re.sub('[^0-9,-]', '', target_str.strip()))
         else:
             string_clean = re.sub('[^0-9.-]', '', target_str.strip())
-        number_match = extract_number_string(string_clean)
+        number_match = extract_number_from_string(string_clean)
         if re.match('\\(.*\\)', target_str):
             return number_match * -1.0
         else:
             return number_match
 
 
-def extract_number_string(target_str):
-    """
+def extract_number_from_string(target_str):
+    """Extract number from string.
 
     Args:
-        target_str ():
+        target_str (str): containing number in string format.
 
     Returns:
-
+        float: parsed from string.
     """
     number_pattern = '(\\-?[0-9]+(\\.[0-9]+)?)'
     matches = re.search(number_pattern, target_str)

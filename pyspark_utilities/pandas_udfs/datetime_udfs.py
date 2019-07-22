@@ -22,7 +22,7 @@ def is_holiday_usa(dt):
     """ Check whether a given date is a US holiday.
 
     Args:
-        dt (str, Timestamp):
+        dt (str, Timestamp): date to check for holiday status.
 
     Returns:
         str: `Y`, `N`, or `Unknown`

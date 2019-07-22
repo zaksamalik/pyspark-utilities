@@ -4,46 +4,44 @@ from pyspark.sql.functions import (col, concat, date_format, datediff, dayofmont
 from ..pandas_udfs.datetime_udfs import pd_is_holiday_usa
 
 
-def generate_dim_date(spark):
-    # TODO: add start_date and end_date parameters.
-    # TODO: other holiday columns
+def generate_dim_date(spark, start_year=1901, number_years_out_from_start=300):
     """Create `dim_date` table containing various date feature columns.
 
     Args:
         spark (SparkSession): Instantiated SparkSession
+        start_year (int): starting year for dim_date table.
+        number_years_out_from_start (int): number out from `start_year` to increment.
 
     Returns:
         Spark DataFrame.
     """
-    years = [1901 + i for i in range(300)]
+    years = [start_year + i for i in range(number_years_out_from_start + 1)]
     months = [i for i in range(1, 13)]
     days = [i for i in range(1, 32)]
 
-    years_df = spark.createDataFrame(pd.DataFrame({'year': years, 'temp_join_key': '1'})).cache()
-    months_df = spark.createDataFrame(pd.DataFrame({'month': months, 'temp_join_key': '1'})).cache()
-    days_df = spark.createDataFrame(pd.DataFrame({'day_of_month': days, 'temp_join_key': '1'})).cache()
+    years_df = spark.createDataFrame(pd.DataFrame({'year': years, 'temp_join_key': '1'}))
+    months_df = spark.createDataFrame(pd.DataFrame({'month': months, 'temp_join_key': '1'}))
+    days_df = spark.createDataFrame(pd.DataFrame({'day_of_month': days, 'temp_join_key': '1'}))
 
-    # get year-months
     years_months_df = (years_df
                        .join(months_df,
                              ['temp_join_key'],
                              how='inner'))
 
-    # get year-month-days
     years_month_days_df = (years_months_df
                            .join(days_df,
                                  ['temp_join_key'],
                                  how='inner'))
 
-    dates = (years_month_days_df
-             .withColumn('date', to_date(concat(col('year'),
-                                                lpad(col('month'), 2, '0'),
-                                                lpad(col('day_of_month'), 2, '0')), 'yyyyMMdd'))
-             # remove invalid dates
-             .filter("date IS NOT NULL")
-             .withColumn('date_key', regexp_replace(col('date').cast('string'), '-', '').cast('integer')))
+    date_keys = (years_month_days_df
+                 .withColumn('date', to_date(concat(col('year'),
+                                                    lpad(col('month'), 2, '0'),
+                                                    lpad(col('day_of_month'), 2, '0')), 'yyyyMMdd'))
+                 # remove invalid dates
+                 .filter("date IS NOT NULL")
+                 .withColumn('date_key', regexp_replace(col('date').cast('string'), '-', '').cast('integer')))
 
-    date_features = (dates
+    date_features = (date_keys
                      # get `week` and `quarter`
                      .withColumn('week', weekofyear(col('date')))
                      .withColumn('quarter', quarter(col('date')))
@@ -101,7 +99,6 @@ def generate_dim_date(spark):
                                  .otherwise('UNKNOWN')))
 
     dim_date = (date_features
-                .repartition('date')
                 .sort('date')
                 .select(['date_key',
                          'date',
@@ -132,3 +129,6 @@ def generate_dim_date(spark):
                          'pct_into_quarter',
                          'pct_into_year']))
     return dim_date
+
+
+# TODO: `generate_dim_time` (seconds)
