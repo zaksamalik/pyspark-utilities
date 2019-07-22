@@ -107,10 +107,10 @@ __Note__: all Pandas UDFs in this library start with a `pd_` prefix.
         * returns: _IntegerType_  
 
 ## Spark UDFs (Scala)
-Spark UDFs written in Scala exposed to Python.  
+_Spark UDFs written in Scala exposed to Python._
 
 __Important Note__: all Scala Spark UDF functionality also exist as Pandas UDFs.  
-Because they are Scala native, Spark UDFs should be more performant than Pandas UDFs (in most cases), but require an external JAR in order to use. For pure Python ETL implementations, use Pandas UDFs instead. All other functionality in this package will work fine without the Spark UDFs JAR.
+Because they are Scala native, Spark UDFs should be more performant than Pandas UDFs (in most cases), but require an external JAR in order to use. For pure Python ETL implementations, use Pandas UDFs instead. All other functionality in this package should work fine without the Spark UDFs JAR.
 
 ### Example
 ```py
@@ -150,7 +150,7 @@ df_with_uuid = (df
         * returns: _timestamp_ (nullable)
 
 ## Dimension Utilities
-Functions to generate dimension ("dim") tables as Spark DataFrames.
+_Functions to generate dimension ("dim") tables as Spark DataFrames._
 ### Methods
 __Datetime__
 * `generate_dim_date` - generate Spark DataFrame with various date dimensions
