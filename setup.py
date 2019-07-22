@@ -12,7 +12,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/zaksamalik/pyspark-utilities",
     packages=setuptools.find_packages(),
-    install_requires=['holidays>=0.9.20',
+    install_requires=['holidays>=0.9.10',
                       'fuzzywuzzy>=0.17.0',
                       'pandas>=0.24.0',
                       'pyarrow>=0.13.0',
