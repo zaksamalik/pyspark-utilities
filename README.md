@@ -31,17 +31,17 @@ __General__
         * `aws_profile` (_str_) - name of profile to use for interacting with AWS services (default = None).
            Only used if `env` is `local`.
     * example usage
-    ```py
-    from os.path import expanduser
-    from pyspark import SparkConf
-    from pyspark_utilities.spark_utilities import start_spark
-
-    config = (SparkConf().setAll([
-        ('spark.driver.extraClassPath', expanduser('/path/to/jars/*')),
-        ('spark.executor.extraClassPath', expanduser('/path/to/jars/*'))
-    ]))
-    spark = start_spark(config=config, app_name='example_app', env='local')
-    ```
+        ```py
+        from os.path import expanduser
+        from pyspark import SparkConf
+        from pyspark_utilities.spark_utilities import start_spark
+    
+        config = (SparkConf().setAll([
+            ('spark.driver.extraClassPath', expanduser('/path/to/jars/*')),
+            ('spark.executor.extraClassPath', expanduser('/path/to/jars/*'))
+        ]))
+        spark = start_spark(config=config, app_name='example_app', env='local')
+        ```
 
 ## Pandas UDFs
 _User-defined functions written using Pandas UDF feature added in Spark 2.3._
@@ -106,6 +106,16 @@ __Note__: all Pandas UDFs in this library start with a `pd_` prefix.
     * `pd_fuzz_partial_token_sort_ratio` - partial token sort ratio (`fuzz.partial_token_sort_ratio`)
         * returns: _IntegerType_  
 
+* example usage
+  ```py
+  from pyspark.sql.functions import col
+  from pyspark_utilities.pandas_udfs import pd_clean_string, pd_fuzz_partial_ratio
+  
+  df_fuzzy_ratio = (df
+                      .withColumn('clean_text1', pd_clean_string(col('messy_text')))
+                      .withColumn('clean_text2', pd_clean_string(col('messy_text')))
+                      .withColumn('partial_fuzzy_ratio', pd_fuzz_partial_ratio(col('clean_text1'), col('clean_text2'))))                      
+  ```
 ## Spark UDFs (Scala)
 _Spark UDFs written in Scala exposed to Python._
 
