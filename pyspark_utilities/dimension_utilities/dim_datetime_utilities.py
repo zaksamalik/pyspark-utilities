@@ -1,7 +1,7 @@
 import pandas as pd
 from pyspark.sql.functions import (col, concat, date_format, datediff, dayofmonth, dayofweek, dayofyear, expr,
                                    last_day, lit, lpad, quarter, regexp_replace, to_date, weekofyear, when)
-from ..pandas_udfs.datetime_udfs import pd_is_holiday_usa
+from pyspark_utilities.pandas_udfs import pd_is_holiday_usa
 
 
 def generate_dim_date(spark, start_year=1901, number_years_out_from_start=300):
