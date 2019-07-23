@@ -6,6 +6,7 @@ ETL-focused utilities library for PySpark
 * `pandas_udfs` - Spark UDFs written using [__Pandas UDF__](https://docs.databricks.com/spark/latest/spark-sql/udf-python-pandas.html) feature [added in Spark 2.3](https://databricks.com/blog/2017/10/30/introducing-vectorized-udfs-for-pyspark.html)
 * `spark_udfs` - Python class containing Spark UDFs written in Scala, accessed via JAR passed to SparkContext at initialization
 * `dimension_utilities` - functions to generate dimension tables as Spark DataFrames
+* `feature_engineering_utilities` - functions to programatically generate features for use in statistical modeling / ML.
 
 ## Setup
 1. Install library  
@@ -136,28 +137,28 @@ df_with_uuid = (df
 ### Methods
 * __General UDFs__
     * `clean_string` - remove Java ISO control characters from, and trim, string
-        * returns: _string_ (nullable)
+        * returns: _StringType_ (nullable)
     *  `empty_string_to_null` - convert empty strings to null values
-        * returns: _string_ (nullable)
+        * returns: _StringType_ (nullable)
     *  `generate_uuid` - generate V4 UUID
-        * returns: _string_
+        * returns: _StringType_
     * `map_booleans_ynu` - map boolean values to `Y`, `N`, `Unknown`
-        * returns: _string_
+        * returns: _StringType_
     * `string_to_double_pfd` - convert string to double (where `.` represents decimal place)
-        * returns: _double_ (nullable)
+        * returns: _DoubleType_ (nullable)
     * `string_to_double_cfd` - convert string to decimal (where `,` represents decimal place)
-        * returns: _double_ (nullable)
+        * returns: _DoubleType_ (nullable)
     * `string_is_number` - validate whether passed string could be converted to a number.
-        * returns: _boolean_
+        * returns: _BooleanType_
 * __Datetime UDFs__
     * `normalize_date_md` - normalize string to date with MONTH before DAY
-        * returns: _date_ (nullable)
+        * returns: _DateType_ (nullable)
     * `normalize_date_dm` - normalize string to date with DAY before MONTH
-        * returns: _date_ (nullable)
+        * returns: _DateType_ (nullable)
     * `normalize_timestamp_md` - normalize string to timestamp with MONTH before DAY
-        * returns: _timestamp_ (nullable)
+        * returns: _TimestampType_ (nullable)
     * `normalize_timestamp_dm` - normalize string to timestamp with DAY before MONTH
-        * returns: _timestamp_ (nullable)
+        * returns: _TimestampType_ (nullable)
 
 ## Dimension Utilities
 _Functions to generate dimension ("dim") tables as Spark DataFrames._
@@ -168,6 +169,7 @@ __Datetime__
         * `spark` - instantiated SparkSession
         * `start_date` - starting (minimum) year for dim_date table
         * `number_years_out_from_start` - number of years out from starting date to increment
+    * returns: __Spark DataFrame__
     * example usage
         ```py
         from pyspark_utilities.spark_utilities import start_spark
@@ -175,4 +177,21 @@ __Datetime__
 
         spark=start_spark(env='local')
         dim_date_df = generate_dim_date(spark=spark, start_year=1901, number_years_out_from_start=300)
+        ```
+
+## Feature Engineering Utilities
+Feature engineering utilities to support scalable data prep for statistical modeling / ML.
+### Methods
+__Numeric Features__
+* `generate_numeric_combination_features` - Generate features by combining numeric fields (pairs).
+    * arguments:
+        * `df` (Spark DataFrame): containing numeric feature columns
+        * `numeric_fields` (list): optional, provided subset of numeric fields to combine. Useful for already wide datasets.
+        * `numeric_combos` (list): optional, provided subset of numeric combinations. Useful for very wide datasets.
+    * returns: Spark DataFrame
+    * example usage
+        ```py
+        from pyspark_utilities.feature_engineering_utilities import generate_numeric_combination_features
+        
+        df_with_numeric_combination_features = generate_numeric_combination_features(df=df)    
         ```
