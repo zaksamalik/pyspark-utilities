@@ -20,7 +20,7 @@ def pd_clean_string(target_col):
 
 
 def clean_string(target_str):
-    """ Remove ISO control characters and trim input string,
+    """ Remove ISO control characters and trim input string. Returns None if cleaned string is empty.
 
     Args:
         target_str (st): string to be cleaned.
@@ -31,7 +31,11 @@ def clean_string(target_str):
     if target_str is None:
         return None
     else:
-        return re.sub(r'[\x00-\x1F]+', '', target_str).strip()
+        string_clean = re.sub(r'[\x00-\x1F]+', '', target_str).strip()
+        if clean_string == '':
+            return None
+        else:
+            return string_clean
 
 
 # noinspection PyArgumentList
@@ -59,7 +63,7 @@ def empty_string_to_null(target_str):
     """
     if target_str is None:
         return None
-    elif target_str.strip() == '':
+    elif re.sub(r'[\x00-\x1F]+', '', target_str).strip() == '':
         return None
     else:
         return target_str
