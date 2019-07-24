@@ -32,7 +32,7 @@ def clean_string(target_str):
         return None
     else:
         string_clean = re.sub(r'[\x00-\x1F]+', '', target_str).strip()
-        if clean_string == '':
+        if string_clean == '':
             return None
         else:
             return string_clean
