@@ -14,7 +14,7 @@ def pd_fuzz_ratio(col1, col2):
         col2 (Spark Column): 2nd text column
 
     Returns:
-        Spark Column (int): result of `fuzz.ratio` calculation.
+        Spark Column (IntegerType): result of `fuzz.ratio` calculation.
     """
     return pd.Series(map(fuzz.ratio, col1, col2))
 
@@ -29,7 +29,7 @@ def pd_fuzz_partial_ratio(col1, col2):
         col2 (Spark Column): 2nd text column
 
     Returns:
-        Spark Column (int): result of `fuzz.partial_ratio` calculation.
+        Spark Column (IntegerType): result of `fuzz.partial_ratio` calculation.
     """
     return pd.Series(map(fuzz.partial_ratio, col1, col2))
 
@@ -44,7 +44,7 @@ def pd_fuzz_token_set_ratio(col1, col2):
         col2 (Spark Column): 2nd text column
 
     Returns:
-        Spark Column (int): result of `fuzz.token_set_ratio` calculation.
+        Spark Column (IntegerType): result of `fuzz.token_set_ratio` calculation.
     """
     return pd.Series(map(fuzz.token_set_ratio, col1, col2))
 
@@ -59,7 +59,7 @@ def pd_fuzz_partial_token_set_ratio(col1, col2):
         col2 (Spark Column): 2nd text column
 
     Returns:
-        Spark Column (int): result of `fuzz.partial_token_set_ratio` calculation.
+        Spark Column (IntegerType): result of `fuzz.partial_token_set_ratio` calculation.
     """
     return pd.Series(map(fuzz.partial_token_set_ratio, col1, col2))
 
@@ -74,7 +74,7 @@ def pd_fuzz_token_sort_ratio(col1, col2):
         col2 (Spark Column): 2nd text column
 
     Returns:
-        Spark Column (int): result of `fuzz.token_sort_ratio` calculation.
+        Spark Column (IntegerType): result of `fuzz.token_sort_ratio` calculation.
     """
     return pd.Series(map(fuzz.token_sort_ratio, col1, col2))
 
@@ -89,7 +89,7 @@ def pd_fuzz_partial_token_sort_ratio(col1, col2):
         col2 (Spark Column): 2nd text column
 
     Returns:
-        Spark Column (int): result of `fuzz.partial_token_sort_ratio` calculation.
+        Spark Column (IntegerType): result of `fuzz.partial_token_sort_ratio` calculation.
     """
     return pd.Series(map(fuzz.partial_token_sort_ratio, col1, col2))
 
