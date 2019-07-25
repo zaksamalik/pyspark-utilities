@@ -1,4 +1,3 @@
-from fuzzywuzzy import fuzz
 import pandas as pd
 from pyspark.sql.functions import pandas_udf, PandasUDFType
 from pyspark.sql.types import IntegerType
