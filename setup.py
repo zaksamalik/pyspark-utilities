@@ -14,6 +14,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires=['holidays>=0.9.10',
                       'fuzzywuzzy>=0.17.0',
+                      'jellyfish>=0.7.2',
                       'pandas>=0.24.0',
                       'pyarrow>=0.13.0',
                       'pyspark>=2.4.0',
