@@ -92,7 +92,7 @@ __Note__: all Pandas UDFs in this library start with a `pd_` prefix.
               .withColumn('uuid', pd_generate_uuid(lit(''))))
   ```
 
-* __Fuzzy String Matching UDFs__ (methods from [__fuzzywuzzy__](https://github.com/seatgeek/fuzzywuzzy) package)
+* __Fuzzy String Matching UDFs__ (methods from [__fuzzywuzzy__](https://github.com/seatgeek/fuzzywuzzy) and [__jellyfish__](https://github.com/jamesturk/jellyfish) packages)
     * `pd_fuzz_ratio` - simple ratio (`fuzz.ratio`)
         * returns: _IntegerType_
     * `pd_fuzz_partial_ratio` - partial ratio (`fuzz.partial_ratio`)
@@ -105,6 +105,25 @@ __Note__: all Pandas UDFs in this library start with a `pd_` prefix.
         * returns: _IntegerType_
     * `pd_fuzz_partial_token_sort_ratio` - partial token sort ratio (`fuzz.partial_token_sort_ratio`)
         * returns: _IntegerType_  
+    * `pd_damerau_levenshtein_distance` - damerau levenshtein distance (`jellyfish.damerau_levenshtein_distance`)
+        * returns: _IntegerType_
+    * `pd_hamming_distance` - hamming distance (`jellyfish.hamming_distance`)
+        * returns: _IntegerType_
+    * `pd_jaro_distance` - jaro distance (`jellyfish.jaro_distance`)
+        * returns: _DoubleType_
+    * `pd_jaro_winkler` - jaro winkler (`jellyfish.jaro_winkler`)
+        * returns: _DoubleType_
+    * `pd_match_rating_codex` - match rating codex (`jellyfish.match_rating_codex`)
+        * returns: _StringType_
+    * `pd_match_rating_comparison` match rating comparison - (`jellyfish.match_rating_comparison`)
+        * returns: _BooleanType_
+    * `pd_metaphone` - metaphone (`jellyfish.metaphone`)
+        * returns: _StringType_
+    * `pd_nysiis` - nysiis (`jellyfish.nysiis`)
+        * returns: _StringType_
+    * `pd_porter_stem` - porter_stem (`jellyfish.porter_stem`)
+        * returns: _StringType_
+
 
 * example usage
   ```py
