@@ -17,7 +17,7 @@ def pd_fuzz_ratio(col1, col2):
     Returns:
         Spark Column (IntegerType): result of `fuzz.ratio` calculation.
     """
-    return pd.Series(map(fuzz.ratio, col1, col2))
+    return pd.Series(map(fuzz.ratio, col1.astype(str), col2.astype(str)))
 
 
 # noinspection PyArgumentList
@@ -32,7 +32,7 @@ def pd_fuzz_partial_ratio(col1, col2):
     Returns:
         Spark Column (IntegerType): result of `fuzz.partial_ratio` calculation.
     """
-    return pd.Series(map(fuzz.partial_ratio, col1, col2))
+    return pd.Series(map(fuzz.partial_ratio, col1.astype(str), col2.astype(str)))
 
 
 # noinspection PyArgumentList
@@ -47,7 +47,7 @@ def pd_fuzz_token_set_ratio(col1, col2):
     Returns:
         Spark Column (IntegerType): result of `fuzz.token_set_ratio` calculation.
     """
-    return pd.Series(map(fuzz.token_set_ratio, col1, col2))
+    return pd.Series(map(fuzz.token_set_ratio, col1.astype(str), col2.astype(str)))
 
 
 # noinspection PyArgumentList
@@ -62,7 +62,7 @@ def pd_fuzz_partial_token_set_ratio(col1, col2):
     Returns:
         Spark Column (IntegerType): result of `fuzz.partial_token_set_ratio` calculation.
     """
-    return pd.Series(map(fuzz.partial_token_set_ratio, col1, col2))
+    return pd.Series(map(fuzz.partial_token_set_ratio, col1.astype(str), col2.astype(str)))
 
 
 # noinspection PyArgumentList
@@ -77,7 +77,7 @@ def pd_fuzz_token_sort_ratio(col1, col2):
     Returns:
         Spark Column (IntegerType): result of `fuzz.token_sort_ratio` calculation.
     """
-    return pd.Series(map(fuzz.token_sort_ratio, col1, col2))
+    return pd.Series(map(fuzz.token_sort_ratio, col1.astype(str), col2.astype(str)))
 
 
 # noinspection PyArgumentList
@@ -92,7 +92,7 @@ def pd_fuzz_partial_token_sort_ratio(col1, col2):
     Returns:
         Spark Column (IntegerType): result of `fuzz.partial_token_sort_ratio` calculation.
     """
-    return pd.Series(map(fuzz.partial_token_sort_ratio, col1, col2))
+    return pd.Series(map(fuzz.partial_token_sort_ratio, col1.astype(str), col2.astype(str)))
 
 # TODO: `process` function
 
@@ -109,7 +109,7 @@ def pd_damerau_levenshtein_distance(col1, col2):
     Returns:
         Spark Column (IntegerType): with Damerau Levenshtein distances.
     """
-    return pd.Series(map(jellyfish.damerau_levenshtein_distance, col1, col2))
+    return pd.Series(map(jellyfish.damerau_levenshtein_distance, col1.astype(str), col2.astype(str)))
 
 
 # jellyfish.hamming_distance
@@ -125,7 +125,7 @@ def pd_hamming_distance(col1, col2):
     Returns:
         Spark Column (IntegerType): with hamming distances.
     """
-    return pd.Series(map(jellyfish.hamming_distance, col1, col2))
+    return pd.Series(map(jellyfish.hamming_distance, col1.astype(str), col2.astype(str)))
 
 
 # noinspection PyArgumentList
@@ -140,7 +140,7 @@ def pd_jaro_distance(col1, col2):
     Returns:
         Spark Column (DoubleType): with Jaro distances.
     """
-    return pd.Series(map(jellyfish.jaro_distance, col1, col2))
+    return pd.Series(map(jellyfish.jaro_distance, col1.astype(str), col2.astype(str)))
 
 
 # noinspection PyArgumentList
@@ -155,7 +155,7 @@ def pd_jaro_winkler(col1, col2):
     Returns:
         Spark Column (DoubleType): with Jaro Winkler scores.
     """
-    return pd.Series(map(jellyfish.jaro_winkler, col1, col2))
+    return pd.Series(map(jellyfish.jaro_winkler, col1.astype(str), col2.astype(str)))
 
 
 # noinspection PyArgumentList
@@ -169,7 +169,7 @@ def pd_match_rating_codex(target_col):
     Returns:
         Spark Column (StringType): with match rating codex.
     """
-    return pd.Series(target_col.apply(lambda x: jellyfish.match_rating_codex(x)))
+    return pd.Series(target_col.apply(lambda x: jellyfish.match_rating_codex(str(x))))
 
 
 # noinspection PyArgumentList
@@ -184,7 +184,7 @@ def pd_match_rating_comparison(col1, col2):
     Returns:
         Spark Column (BooleanType, nullable): True / False / None matching results.
     """
-    return pd.Series(map(jellyfish.match_rating_comparison, col1, col2))
+    return pd.Series(map(jellyfish.match_rating_comparison, col1.astype(str), col2.astype(str)))
 
 
 # noinspection PyArgumentList
@@ -198,7 +198,7 @@ def pd_metaphone(target_col):
     Returns:
         Spark Column (StringType): metaphone encodings.
     """
-    return pd.Series(target_col.apply(lambda x: jellyfish.metaphone(x)))
+    return pd.Series(target_col.apply(lambda x: jellyfish.metaphone(str(x))))
 
 
 # noinspection PyArgumentList
@@ -212,7 +212,7 @@ def pd_nysiis(target_col):
     Returns:
         Spark Column (StringType): NYSIIS encodings.
     """
-    return pd.Series(target_col.apply(lambda x: jellyfish.nysiis(x)))
+    return pd.Series(target_col.apply(lambda x: jellyfish.nysiis(str(x))))
 
 
 # noinspection PyArgumentList
@@ -226,4 +226,4 @@ def pd_porter_stem(target_col):
     Returns:
         Spark Column (StringType): porter stems.
     """
-    return pd.Series(target_col.apply(lambda x: jellyfish.porter_stem(x)))
+    return pd.Series(target_col.apply(lambda x: jellyfish.porter_stem(str(x))))
