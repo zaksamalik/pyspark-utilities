@@ -51,7 +51,7 @@ def start_spark(config=SparkConf(),
 
     # get credentials for AWS profile when running Spark locally
     if source_aws_credentials_file:
-        if aws_profile is not None:
+        if aws_profile is None:
             warn("`aws_profile` is None with `source_aws_credentials_file` set to true. Using `default` AWS profile.")
             aws_profile = 'default'
         cfp = configparser.ConfigParser()
