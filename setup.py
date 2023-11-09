@@ -17,7 +17,7 @@ setuptools.setup(
                       'jellyfish>=0.7.2',
                       'numpy==1.14.5',
                       'pandas>=0.24.0',
-                      'pyarrow==0.13.0',
+                      'pyarrow==14.0.1',
                       'pyspark>=2.4.0',
                       'python-Levenshtein>=0.12.0'],
     classifiers=[
